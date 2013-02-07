@@ -22,7 +22,6 @@
     "jsdom": "0.2.14",
     "htmlparser": "1.7.6",
     "soupselect": "0.2.0",
-    "underscore": "1.4.4",
     "hubot-hipchat": ">= 2.4.5"
   },
 
