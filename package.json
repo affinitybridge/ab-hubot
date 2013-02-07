@@ -18,7 +18,6 @@
     "hubot": ">=2.4.6",
     "hubot-scripts": ">= 2.4.1",
     "optparse": "1.0.3",
-    "libxmljs": "~0.6.1",
     "cleverbot-node": "~0.1.1",
     "jsdom": "0.2.14",
     "htmlparser": "1.7.6",
