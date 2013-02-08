@@ -33,9 +33,9 @@ module.exports = (robot) ->
     ticket_num = msg.match[2]
 
     unf.ticket project_id, ticket_num, (ticket) ->
-      if ticket 
-        url = unf.ticketUrl ticket
-        msg.send ticket.number + ": " + ticket.summary + "\n" + url;
+      if ticket
+        msg.send ticket.number + ": " + ticket.summary
+        msg.send unf.ticketUrl ticket
       else
         msg.send "I can't seem to find that ticket."
 
