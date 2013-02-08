@@ -28,7 +28,7 @@ module.exports = (robot) ->
 
   unf = new Unfuddle(host, user, password)
 
-  robot.hear /(\w+) #(\d*)/i, (msg) ->
+  respond = (msg) ->
     project_id = msg.match[1]
     ticket_num = msg.match[2]
 
@@ -39,6 +39,12 @@ module.exports = (robot) ->
       else
         msg.send "I can't seem to find that ticket."
 
+
+  # This isn't pretty.
+  match_urls = new RegExp("https://" + host + ".unfuddle.com(?:/a#)?/projects/(\\d+)/tickets/by_number/(\\d+)", "i")
+
+  robot.hear /(\w+) #(\d*)/i, respond
+  robot.hear match_urls, respond
 
   robot.hear /tired|too hard|to hard|upset|bored|bothered/i, (msg) ->
     msg.send "Panzy"
