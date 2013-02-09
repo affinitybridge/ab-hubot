@@ -151,5 +151,9 @@ module.exports = function () {
         }
     };
 
+    Unfuddle.prototype.ticketUrl = function (ticket) {
+        return "https://" + domain + "/projects/" + ticket.project_id + "/tickets/by_number/" + ticket.number;
+    };
+
     return Unfuddle;
 }();
