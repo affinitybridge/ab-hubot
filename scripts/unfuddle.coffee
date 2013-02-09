@@ -2,7 +2,9 @@
 #   Interact with the Unfuddle API.
 #
 # Dependencies:
-#   "unfuddle-api": "~0.0.1"
+#   "unfuddle": "~0.0.1"
+#   "rsvp": "~1.2.0"
+#   "restify": "~2.1.1"
 #
 # Configuration:
 #   HUBOT_UNFUDDLE_SUBDOMAIN
@@ -19,7 +21,7 @@
 # Author:
 #   tnightingale
 
-Unfuddle = require '../custom_deps/unfuddle-api'
+Unfuddle = require '../custom_deps/unfuddle'
 
 module.exports = (robot) ->
   host     = process.env.HUBOT_UNFUDDLE_SUBDOMAIN
@@ -32,12 +34,12 @@ module.exports = (robot) ->
     project_id = msg.match[1]
     ticket_num = msg.match[2]
 
-    unf.ticket project_id, ticket_num, (ticket) ->
-      if ticket
-        msg.send ticket.number + ": " + ticket.summary
-        msg.send unf.ticketUrl ticket
-      else
-        msg.send "I can't seem to find that ticket."
+    unf.ticket(project_id, ticket_num).then((ticket) ->
+      msg.send ticket.number + ": " + ticket.summary
+      msg.send unf.ticketUrl ticket
+    , (error) ->
+      msg.send "I can't seem to find that ticket."
+    )
 
   respond_multiple = (msg) ->
     msg.match.forEach (m) ->
