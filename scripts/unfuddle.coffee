@@ -34,12 +34,14 @@ module.exports = (robot) ->
     project_id = msg.match[1]
     ticket_num = msg.match[2]
 
-    unf.ticket(project_id, ticket_num).then((ticket) ->
+    success = (ticket) ->
       msg.send ticket.number + ": " + ticket.summary
       msg.send unf.ticketUrl ticket
-    , (error) ->
+
+    error = (err) ->
       msg.send "I can't seem to find that ticket."
-    )
+
+    unf.ticket(project_id, ticket_num).then success, error
 
   respond_multiple = (msg) ->
     msg.match.forEach (m) ->
@@ -51,6 +53,9 @@ module.exports = (robot) ->
 
   robot.hear /(\w+) #(\d*)/i, respond
   robot.hear match_urls, respond_multiple
+
+  robot.respond /unfuddle project (\w+)/, (msg) ->
+    msg.send msg.room
 
   robot.hear /tired|too hard|to hard|upset|bored|bothered/i, (msg) ->
     msg.send "Panzy"
