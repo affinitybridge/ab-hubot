@@ -54,8 +54,8 @@ module.exports = (robot) ->
   robot.hear /(\w+) #(\d*)/i, respond
   robot.hear match_urls, respond_multiple
 
-  robot.respond /unfuddle project (\w+)/, (msg) ->
-    msg.send msg.room
+  robot.respond /unfuddle project (\w+)$/, (msg) ->
+    msg.send "Room: " + msg.room
 
   robot.hear /tired|too hard|to hard|upset|bored|bothered/i, (msg) ->
     msg.send "Panzy"
