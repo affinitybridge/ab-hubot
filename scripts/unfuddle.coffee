@@ -37,7 +37,7 @@ module.exports = (robot) ->
   # Returns a string of ticket information.
   ticket_info = (ticket) ->
     "##{ticket.number}, #{ticket.summary} " +
-    "(http://#{subdomain}.unfuddle.com/projects/#{ticket.project_id}/by_number/#{ticket.id})"
+    "(http://#{subdomain}.unfuddle.com/projects/#{ticket.project_id}/by_number/#{ticket.number})"
 
   # Match Unfuddle ticket urls.
   match_urls = new RegExp("https://#{subdomain}.unfuddle.com(?:/a#)?/projects/(\\d+)/tickets/by_number/(\\d+)", "ig")
