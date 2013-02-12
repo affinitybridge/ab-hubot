@@ -5,6 +5,9 @@ var https = require('https'),
 
 module.exports = function () {
 
+    /**
+     * TODO: Currently these are behaving as if they're static variables.
+     */
     var client,
         domain = "https://{s}.unfuddle.com",
         version = 'v1',
@@ -32,19 +35,14 @@ module.exports = function () {
         else {
             var path = '/api/{v}/projects/{id}/tickets/by_number/{number}'
                         .replace('{v}', version)
+                        .replace('{id}', project_id)
                         .replace('{number}', number);
 
-            this.project(project_id).then(function (project) {
-                path = path.replace('{id}', project.id);
+            client.get(path, function (err, req, res, obj) {
+                if (err) promise.reject({ err: err, req: req, res: res, obj: obj });
 
-                client.get(path, function (err, req, res, obj) {
-                    if (err) promise.reject({ err: err, req: req, res: res, obj: obj });
-                    cache.tickets.push(obj);
-                    promise.resolve(obj);
-                });
-            },
-            function (error) {
-                promise.reject(error);
+                cache.tickets.push(obj);
+                promise.resolve(obj);
             });
         }
 
@@ -65,38 +63,6 @@ module.exports = function () {
                 promise.resolve(obj);
             });
         };
-
-        return promise;
-    };
-
-    Unfuddle.prototype.project = function (id) {
-        var promise = new RSVP.Promise(),
-            project = this.checkCache('projects', function (p) {
-                return p.id === +id|| p.short_name === id;
-            });
-
-        if (project) {
-            promise.resolve(project);
-        }
-        else {
-            var success = function (project) {
-                    promise.resolve(project);
-                },
-                error = function (err) {
-                    promise.reject(err);
-                };
-
-            // First try short name.
-            this.projectByShortName(id).then(success, function (err) {
-                if (err.statusCode === 404) {
-                    // Otherwise try id and if that fails, error out.
-                    this.projectById(id).then(success, error);
-                }
-                else {
-                    promise.reject(err);
-                }
-            }.bind(this));
-        }
 
         return promise;
     };
