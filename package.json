@@ -16,7 +16,7 @@
 
   "dependencies": {
     "hubot": ">=2.4.6",
-    "hubot-scripts": "git://github.com/github/hubot-scripts.git#7d4d2c4",
+    "hubot-scripts": "~2.4.2",
     "optparse": "1.0.3",
     "cleverbot-node": "~0.1.1",
     "jsdom": "0.2.14",
