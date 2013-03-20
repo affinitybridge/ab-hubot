@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Usage:
+#
+# 1. Copy this script and name it 'hipchat-init'.
+# 2. Update the variables below to match your HipChat account details.
+# 3. Make it exacutable.
+#
+export HUBOT_HIPCHAT_TOKEN=""
+export HUBOT_HIPCHAT_JID="@chat.hipchat.com"
+export HUBOT_HIPCHAT_PASSWORD=""
+
+./bin/hubot --adapter hipchat
