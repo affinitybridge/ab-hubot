@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "hubot": "2.11.0",
+    "hubot-hipchat": "^2.7.5",
     "hubot-scripts": "^2.5.16",
-    "hubot-slack": "^3.2.1",
     "hubot-unfuddle": "~0.2.3"
   },
   "engines": {
